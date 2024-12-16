@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 
 export default async function Home() {
-  const res = await fetch(`https://${process.env.VERCEL_URL}/get-item`, {
+  const url = `https://${process.env.VERCEL_URL}/get-item`;
+  console.log(`Fetch value from ${url}`);
+  
+  const res = await fetch(url, {
     cache: 'force-cache',
     next: {
       tags: ['my-cachetag'],
