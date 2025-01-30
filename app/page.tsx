@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 export default async function Home() {
-  const url = `https://${process.env.VERCEL_URL}/get-item`;
+  const url = `https://cache-revalidate-404-issue-zeta.vercel.app/get-item`;
   console.log(`Fetch value from ${url}`);
 
   let data = null;
