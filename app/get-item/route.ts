@@ -5,8 +5,13 @@ import { notFound } from "next/navigation";
 const redis = Redis.fromEnv();
 
 export async function GET() {
-    const result = await redis.get("item") as ({item?: string});
-    
+    let result
+    try {
+        result = await redis.get("item") as ({item?: string});
+    } catch (e) {
+        console.warn(e);
+    }
+
     if (!result || !result.item) {
         notFound();
     }
