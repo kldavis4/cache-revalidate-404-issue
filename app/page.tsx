@@ -4,14 +4,19 @@ export default async function Home() {
   const url = `https://${process.env.VERCEL_URL}/get-item`;
   console.log(`Fetch value from ${url}`);
 
-  const res = await fetch(url, {
-    cache: 'force-cache',
-    next: {
-      tags: ['my-cachetag']
-    }
-  });
+  let res
+  try {
+    res = await fetch(url, {
+      cache: 'force-cache',
+      next: {
+        tags: ['my-cachetag']
+      }
+    });
+  } catch (e) {
+    console.error(e);
+  }
 
-  if (!res.ok) {
+  if (!res || !res.ok) {
     notFound();
   }
 
