@@ -12,9 +12,7 @@ export default async function Home() {
         tags: ['my-cachetag']
       }
     });
-  } catch (e) {
-    console.warn(e);
-  }
+  } catch (e) {}
 
   if (!res || !res.ok) {
     notFound();
