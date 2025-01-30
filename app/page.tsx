@@ -4,26 +4,32 @@ export default async function Home() {
   const url = `https://${process.env.VERCEL_URL}/get-item`;
   console.log(`Fetch value from ${url}`);
 
-  let res
+  let data = null;
+
   try {
-    res = await fetch(url, {
+    const res = await fetch(url, {
       cache: 'force-cache',
       next: {
         tags: ['my-cachetag']
       }
     });
+
+    if (res.ok) {
+      data = await res.json();
+    } else {
+      console.warn(`Fetch failed with status: ${res.status} ${res.statusText}`);
+    }
   } catch (e) {
-    console.warn(e);
+    console.error(`Fetch error: ${e.message}`);
   }
 
-  if (!res || !res.ok) {
-    notFound();
-    return
+  // If data is null, it means fetch failed.
+  // Use notFound() if you want to indicate a 404 scenario.
+  if (!data) {
+    notFound(); // This will trigger a 404 during both build and runtime.
   }
 
-  const data = await res.json();
-
-  return <span>{data.item}</span>
+  return <span>{data ? data.item : 'Loading...'}</span>;
 }
 
 export async function generateStaticParams() {
