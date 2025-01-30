@@ -13,7 +13,7 @@ export default async function Home() {
       }
     });
   } catch (e) {
-    console.error(e);
+    console.warn(e);
   }
 
   if (!res || !res.ok) {
