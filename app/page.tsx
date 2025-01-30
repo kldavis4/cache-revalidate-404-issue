@@ -18,6 +18,7 @@ export default async function Home() {
 
   if (!res || !res.ok) {
     notFound();
+    return
   }
 
   const data = await res.json();
